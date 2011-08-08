@@ -10,6 +10,7 @@
 		0E58E54BCEDEB518B242193A /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323E4799E33A7EACD910E4FD /* CoreMIDI.framework */; };
 		13EB812DE185915FD3F4E2F3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC62D5D2518D5441BA33680 /* QuartzCore.framework */; };
 		2D2E088EF53F6DE1873786AE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1A20F3CCB580B1CFE6663A /* WebKit.framework */; };
+		418E30B413ED8B71007858FB /* BlipSim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 418E30B313ED8B71007858FB /* BlipSim.cpp */; };
 		41FA61A313EC0CD300835570 /* SimScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41FA61A113EC0CD300835570 /* SimScreen.cpp */; };
 		41FA624213EC14F100835570 /* BlipSimComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41FA624113EC14F100835570 /* BlipSimComponent.cpp */; };
 		41FA62E913EC314700835570 /* Animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41FA62C113EC314700835570 /* Animator.cpp */; };
@@ -33,7 +34,6 @@
 		41FA630813EC319800835570 /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = 41FA630213EC319800835570 /* io.c */; };
 		41FA630913EC319800835570 /* pgmspace.c in Sources */ = {isa = PBXBuildFile; fileRef = 41FA630413EC319800835570 /* pgmspace.c */; };
 		41FA630D13EC31AA00835570 /* FiveWireTouchController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41FA630A13EC31AA00835570 /* FiveWireTouchController.cpp */; };
-		41FA630E13EC31AA00835570 /* LedMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 41FA630B13EC31AA00835570 /* LedMatrix.cpp */; };
 		41FA630F13EC31AA00835570 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 41FA630C13EC31AA00835570 /* serial.c */; };
 		4331488EEC070EFF16FA4EE9 /* JuceLibraryCode1.mm in Sources */ = {isa = PBXBuildFile; fileRef = DB35708D52646A7E1EF526CE /* JuceLibraryCode1.mm */; };
 		4AB1E2A0DA185828FFD5B566 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B870ED69DCB003BB03F82BB /* Main.cpp */; };
@@ -58,6 +58,9 @@
 		155C39886F4FED91F2D9BA1E /* JuceLibraryCode2.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = JuceLibraryCode2.mm; path = ../../JuceLibraryCode/JuceLibraryCode2.mm; sourceTree = SOURCE_ROOT; };
 		323E4799E33A7EACD910E4FD /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		3CCD82A306BE96F649C263D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		418E30AA13ED89C4007858FB /* BlipSim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlipSim.h; path = ../../Source/BlipSim.h; sourceTree = SOURCE_ROOT; };
+		418E30AB13ED89C4007858FB /* OverflowTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverflowTimer.h; path = ../../Source/OverflowTimer.h; sourceTree = SOURCE_ROOT; };
+		418E30B313ED8B71007858FB /* BlipSim.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BlipSim.cpp; path = ../../Source/BlipSim.cpp; sourceTree = SOURCE_ROOT; };
 		41FA61A113EC0CD300835570 /* SimScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimScreen.cpp; path = ../../Source/SimScreen.cpp; sourceTree = SOURCE_ROOT; };
 		41FA61A213EC0CD300835570 /* SimScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimScreen.h; path = ../../Source/SimScreen.h; sourceTree = SOURCE_ROOT; };
 		41FA624113EC14F100835570 /* BlipSimComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BlipSimComponent.cpp; path = ../../Source/BlipSimComponent.cpp; sourceTree = SOURCE_ROOT; };
@@ -110,7 +113,6 @@
 		41FA630413EC319800835570 /* pgmspace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pgmspace.c; path = ../../../BlipBox/firmware/simulator/avr/pgmspace.c; sourceTree = SOURCE_ROOT; };
 		41FA630513EC319800835570 /* pgmspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pgmspace.h; path = ../../../BlipBox/firmware/simulator/avr/pgmspace.h; sourceTree = SOURCE_ROOT; };
 		41FA630A13EC31AA00835570 /* FiveWireTouchController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FiveWireTouchController.cpp; path = ../../../BlipBox/firmware/simulator/FiveWireTouchController.cpp; sourceTree = SOURCE_ROOT; };
-		41FA630B13EC31AA00835570 /* LedMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LedMatrix.cpp; path = ../../../BlipBox/firmware/simulator/LedMatrix.cpp; sourceTree = SOURCE_ROOT; };
 		41FA630C13EC31AA00835570 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = serial.c; path = ../../../BlipBox/firmware/simulator/serial.c; sourceTree = SOURCE_ROOT; };
 		4C676510DBDC65E17EABF8E0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		5AE924A1C5875CF67924B043 /* BlipSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlipSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,9 @@
 		37A0E1F0765DE6C41743D6F8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				418E30B313ED8B71007858FB /* BlipSim.cpp */,
+				418E30AA13ED89C4007858FB /* BlipSim.h */,
+				418E30AB13ED89C4007858FB /* OverflowTimer.h */,
 				41FA62BA13EC304700835570 /* BlipBox */,
 				41FA624113EC14F100835570 /* BlipSimComponent.cpp */,
 				41FA61A113EC0CD300835570 /* SimScreen.cpp */,
@@ -239,7 +244,6 @@
 			children = (
 				41FA62FD13EC316800835570 /* avr */,
 				41FA630A13EC31AA00835570 /* FiveWireTouchController.cpp */,
-				41FA630B13EC31AA00835570 /* LedMatrix.cpp */,
 				41FA630C13EC31AA00835570 /* serial.c */,
 			);
 			name = simulator;
@@ -388,8 +392,8 @@
 				41FA630813EC319800835570 /* io.c in Sources */,
 				41FA630913EC319800835570 /* pgmspace.c in Sources */,
 				41FA630D13EC31AA00835570 /* FiveWireTouchController.cpp in Sources */,
-				41FA630E13EC31AA00835570 /* LedMatrix.cpp in Sources */,
 				41FA630F13EC31AA00835570 /* serial.c in Sources */,
+				418E30B413ED8B71007858FB /* BlipSim.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,10 +420,7 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../../BlipBox/firmware/sim\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 			};
@@ -477,9 +478,7 @@
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (

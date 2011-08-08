@@ -10,55 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainWindow.h"
-#include "globals.h"
-#include "BlipBox.h"
-
-extern "C" void SIG_OVERFLOW0();
-
-#define CALIBRATION_INTERVAL 10000 // calibrate OverflowTimer every so often (milliseconds)
-#define CALIBRATION_TOLERANCE 0.10 // drift tolerance over calibration interval (percent/100)
-
-class OverflowTimer : public Thread { 
-// juce::Timer can't do 1ms accuracy
-public:
-  OverflowTimer(double periodSeconds) : Thread(T("Overflow Timer")) {
-    period = Time::secondsToHighResolutionTicks(periodSeconds);
-    std::cout << "period " << period << " ticks" << std::endl;
-  }
-  void run(){
-    int64 timerms = millis();
-    int64 ticks = Time::getHighResolutionTicks();
-    int64 lastcalibrated = Time::currentTimeMillis();
-    int64 calibrationperiod = CALIBRATION_INTERVAL;
-    while(!threadShouldExit()){
-      if(Time::getHighResolutionTicks() - ticks > period){
-	ticks = Time::getHighResolutionTicks();
-	SIG_OVERFLOW0();
-      }
-      if(Time::currentTimeMillis() - lastcalibrated > calibrationperiod){
-	double drift = 1.0 - (double)(millis() - timerms) / (Time::currentTimeMillis() - lastcalibrated);
-	if(std::abs(drift) > CALIBRATION_TOLERANCE){
-	  period -= period*drift/2.0;
-	  std::cout << "ms  " << (Time::currentTimeMillis() - lastcalibrated) << " \t" << (millis() - timerms) << " \t drift: " << drift*100.0 << "%\t adjusted period: " << period << std::endl;
-	}
-	timerms = millis();
-	lastcalibrated = Time::currentTimeMillis();
-      }
-    }
-  }
-private:
-  int64 period;
-};
-
-class BlipBoxThread : public Thread { 
-public:
-  BlipBoxThread() : Thread(T("BlipBox Simulator")) {}
-  void run(){
-    while(!threadShouldExit()){
-      loop();
-    }
-  }
-};
+#include "BlipSim.h"
 
 //==============================================================================
 class BlipSimApplication  : public JUCEApplication
@@ -78,28 +30,16 @@ public:
   {
     // Do your application's initialisation code here..
     std::cout << "Main" << std::endl;
-    init();
-    setup();
-    blipbox.config.touchscreen_x_min = 0;
-    blipbox.config.touchscreen_y_min = 0;
-    blipbox.config.touchscreen_x_range = 1023;
-    blipbox.config.touchscreen_y_range = 1023;
-    blipthread = new BlipBoxThread();
-    blipthread->startThread();
-    timer0 = new OverflowTimer(0.001);
-    timer0->startThread();
-    std::cout << "started threads, opening window" << std::endl;
+    blipsim = new BlipSim();
+    blipsim->initialise();
     mainWindow = new MainAppWindow();
   }
 
   void shutdown()
   {
     // Do your application's shutdown code here..
-    timer0->stopThread(100);
-    deleteAndZero(timer0);
-    blipthread->stopThread(100);
-    std::cout << "stopped thread" << std::endl;
-    deleteAndZero(blipthread);
+    blipsim->shutdown();
+    deleteAndZero(blipsim);
     mainWindow = 0;
   }
 
@@ -132,8 +72,7 @@ public:
 
 private:
   ScopedPointer <MainAppWindow> mainWindow;
-  Thread* blipthread;
-  OverflowTimer* timer0;
+  BlipSim* blipsim;
 };
 
 //==============================================================================

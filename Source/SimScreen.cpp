@@ -2,18 +2,24 @@
 
 #include "globals.h"
 #include "BlipBox.h"
+#include "LedController.h"
 
 static int row_count = 8;
 static int column_count = 10;
+static SimScreen *simstance = NULL;
 
 SimScreen::SimScreen ()
 {
   std::cout << "SimScreen " << isEnabled() << std::endl;
   setMouseCursor(MouseCursor::CrosshairCursor);
+  if(simstance == NULL)
+    simstance = this;
 }
 
 SimScreen::~SimScreen()
 {
+  if(simstance == this)
+    simstance = NULL;
 }
 
 void SimScreen::mouseUp (const MouseEvent& e){
@@ -43,8 +49,10 @@ void SimScreen::mouseDown (const MouseEvent& e)
 
 void SimScreen::mouseDrag (const MouseEvent& e)
 {
-  std::cout << "SimScreen::mouseDrag" << std::endl;
-  position(getMouseXYRelative().toFloat());
+  if(contains(e.getPosition())){
+    std::cout << "SimScreen::mouseDrag" << std::endl;
+    position(getMouseXYRelative().toFloat());
+  }
 }
 
 void SimScreen::paint (Graphics& g)
@@ -68,10 +76,33 @@ void SimScreen::paint (Graphics& g)
       g.fillEllipse(col*dx, row*dy, width, width);
     }
   }
-  repaint(); // continuously redraw...
 }
 
 void SimScreen::resized()
 {
   
+}
+
+void LedController::init(){
+  back_buffer = buf1;
+  counter.init();
+}
+
+void LedController::flip(){
+//   uint8_t* front_buffer = flipped ? buf2 : buf1;
+//   back_buffer = flipped ? buf1 : buf2;  
+//   // memcpy(to, from, bytes)
+//   memcpy(back_buffer, front_buffer, LED_BUFFER_LENGTH);
+//   flipped = !flipped;
+  if(simstance){
+    const MessageManagerLock mmLock;
+    simstance->repaint();
+  }
+}
+
+void LedController::displayCurrentRow(void){
+  counter.tick();
+}
+
+void LedController::sendBufferData(uint8_t row){
 }
